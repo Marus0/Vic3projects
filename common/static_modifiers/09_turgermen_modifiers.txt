@@ -1,0 +1,6 @@
+﻿discrimination_against_germans = {
+	icon = "gfx/interface/icons/timed_modifier_icons/modifier_fist_positive.dds"
+	state_north_german_standard_of_living_add = -6
+	state_south_german_standard_of_living_add = -6
+	state_alemannic_standard_of_living_add = -6
+}

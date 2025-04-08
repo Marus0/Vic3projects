@@ -1,0 +1,56 @@
+﻿je_turgerman_migration = {
+	icon = "gfx/interface/icons/event_icons/event_map.dds"
+
+	group = je_group_foreign_affairs
+
+	is_shown_when_inactive = {
+		this ?= c:TGS
+	}
+
+	possible = {
+		always = yes
+	}
+
+	immediate = {
+		trigger_event = { id = turgerman.1 popup = yes }
+	}
+
+	on_monthly_pulse = {
+		effect = {
+			if = {
+				limit = {
+					NOT = { has_variable = turkish_migration_var }
+				}
+				set_variable = { name = turkish_migration_var days = 179 }
+				trigger_event = { id = turgerman.2 popup = no }
+			}
+		}
+	}
+
+	complete = {
+		culture_percent_country = {
+			target = cu:south_german
+			value < 0.2
+		}
+		culture_percent_country = {
+			target = cu:north_german
+			value < 0.2
+		}
+		culture_percent_country = {
+			target = cu:turkish
+			value > 0.7
+		}
+	}
+
+	on_complete = {
+		
+	}
+
+	invalid = {
+		NOT = { country_has_primary_culture = cu:turkish }
+	}
+
+	weight = 100
+
+	should_be_pinned_by_default = yes
+}

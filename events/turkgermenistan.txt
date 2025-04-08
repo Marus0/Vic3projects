@@ -1,0 +1,203 @@
+namespace = turgerman
+
+# Native Acceptance Event
+turgerman.1 = {
+	type = country_event
+	title = turgerman.1.title
+	desc = turgerman.1.desc
+	flavor = turgerman.1.flavor
+
+	event_image = { texture = "gfx/event_pictures/ccr.dds" }
+	icon = "gfx/interface/icons/generic_icons/unused/religion_icons.dds"
+
+	option = {
+		name = turgerman.1.a
+		default_option = yes
+		add_modifier = {
+			name = discrimination_against_germans
+		}
+
+		every_state_region = {
+			limit = {
+				OR = {
+					region = sr:region_north_germany
+					region = sr:region_rhine
+					region = sr:region_south_germany
+				}
+			}
+			add_claim = c:TGS
+		}
+	}
+}
+turgerman.2 = {
+	type = country_event
+	title = turgerman.2.title
+	desc = turgerman.2.desc
+	flavor = turgerman.2.flavor
+
+	event_image = { texture = "gfx/event_pictures/ccr.dds" }
+	icon = "gfx/interface/icons/generic_icons/unused/religion_icons.dds"
+
+	immediate = {
+		random_country = {
+			limit = {
+				NOT = { this ?= ROOT }
+				average_sol <= root.average_sol
+				any_scope_culture = {
+					culture_can_have_mass_migration_to_country = ROOT
+					has_discrimination_trait = turkic
+				}
+			}
+			save_scope_as = migration_country
+			random_scope_culture = {
+				limit = {
+					culture_can_have_mass_migration_to_country = ROOT
+					has_discrimination_trait = turkic
+				}
+				save_scope_as = migration_culture
+			}
+		}
+	}
+
+	option = {
+		name = turgerman.2.a
+		default_option = yes
+		random_scope_state = {
+			limit = {
+				is_incorporated = yes
+			}
+			create_mass_migration = {
+				origin = scope:migration_country
+				culture = scope:migration_culture
+			}
+		}
+	}
+}
+turgerman.3 = {
+	type = country_event
+	title = turgerman.3.title
+	desc = turgerman.3.desc
+	flavor = turgerman.3.flavor
+
+	event_image = { texture = "gfx/event_pictures/ccr.dds" }
+	icon = "gfx/interface/icons/generic_icons/unused/religion_icons.dds"
+
+	trigger = {
+		NOT = { has_variable = german_expulsion_cooldown }
+		has_journal_entry = je_turgerman_migration
+		any_state = {
+			owner = { NOT = { this ?= c:TGS } }
+			any_neighbouring_state = {
+				owner = {
+					this ?= c:TGS
+				}
+			}
+		}
+		any_scope_pop = {
+			culture = {
+				has_discrimination_trait = german_speaking
+			}
+		}
+	}
+
+	option = {
+		name = turgerman.3.a
+		default_option = yes
+		ordered_scope_state = {
+			limit = {
+				any_scope_pop = {
+					culture = {
+						has_discrimination_trait = german_speaking
+					}
+				}
+			}
+			random_state = {
+				limit = {
+					owner = { NOT = { this ?= c:TGS } }
+					any_neighbouring_state = {
+						owner = {
+							this ?= c:TGS
+						}
+					}
+				}
+				save_scope_as = german_target_state
+			}
+			random_scope_pop = {
+				limit = {
+					culture = {
+						has_discrimination_trait = german_speaking
+					}
+					strata = lower
+				}
+				move_pop = scope:german_target_state
+			}
+			random_scope_pop = {
+				limit = {
+					culture = {
+						has_discrimination_trait = german_speaking
+					}
+					strata = middle
+				}
+				move_pop = scope:german_target_state
+			}
+			random_scope_pop = {
+				limit = {
+					culture = {
+						has_discrimination_trait = german_speaking
+					}
+					strata = upper
+				}
+				move_pop = scope:german_target_state
+			}
+		}
+		set_variable = { name = german_expulsion_cooldown months = 3 }
+	}
+}
+turgerman.4 = {
+	type = state_event
+	title = turgerman.4.title
+	desc = turgerman.4.desc
+	flavor = turgerman.4.flavor
+
+	event_image = { texture = "gfx/event_pictures/ccr.dds" }
+	icon = "gfx/interface/icons/generic_icons/unused/religion_icons.dds"
+
+	trigger = {
+		OR = {
+			is_homeland = cu:north_german
+			is_homeland = cu:south_german
+			is_homeland = cu:alemannic
+		}
+		culture_percent_state = {
+			target = cu:turkish
+			value > 0.75
+		}
+		owner = {
+			has_journal_entry = je_turgerman_migration
+		}
+	}
+
+	option = {
+		name = turgerman.4.a
+		default_option = yes
+		if = {
+			limit = {
+				is_homeland = cu:north_german
+			}
+			remove_homeland = cu:north_german
+		}
+		if = {
+			limit = {
+				is_homeland = cu:south_german
+			}
+			remove_homeland = cu:south_german
+		}
+		if = {
+			limit = {
+				is_homeland = cu:alemannic
+			}
+			remove_homeland = cu:alemannic
+		}
+		add_homeland = cu:turkish
+	}
+}
