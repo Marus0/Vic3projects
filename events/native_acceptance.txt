@@ -1,0 +1,38 @@
+namespace = native_acceptance
+
+# Native Acceptance Event
+native_acceptance.1 = {
+	type = country_event
+	title = native_acceptance_title
+	desc = native_acceptance_desc
+	flavor = native_acceptance_flavor
+
+	event_image = { texture = "gfx/event_pictures/ccr.dds" }
+	icon = "gfx/interface/icons/generic_icons/unused/religion_icons.dds"
+
+	option = {
+		name = native_acceptance_accept
+		default_option = yes
+
+		add_primary_culture = cu:dakota
+		add_primary_culture = cu:cherokee
+		add_primary_culture = cu:muskogean
+		add_primary_culture = cu:pueblo
+		add_primary_culture = cu:inuit
+		add_primary_culture = cu:cree
+		add_primary_culture = cu:navajo
+		add_primary_culture = cu:athabaskan
+		add_primary_culture = cu:salish
+		add_primary_culture = cu:nez_perce
+		add_primary_culture = cu:siouan
+		add_primary_culture = cu:comanche
+		add_primary_culture = cu:algonquian
+		add_primary_culture = cu:iroquoian
+		add_primary_culture = cu:caddoan
+		add_primary_culture = cu:paiute
+		add_primary_culture = cu:hokan
+		add_primary_culture = cu:apache
+		add_primary_culture = cu:oodham
+		add_primary_culture = cu:metis
+	}
+}
