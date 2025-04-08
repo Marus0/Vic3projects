@@ -1,0 +1,11 @@
+#Turkogermany
+TGS = {
+	color = { 230 56 25 }
+
+	country_type = recognized
+
+	tier = kingdom	
+	
+	cultures = { turkish }
+	capital = STATE_ELBE
+}

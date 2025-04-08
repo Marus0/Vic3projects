@@ -1,0 +1,10 @@
+TGS = {
+	states = {
+		STATE_SCHLESWIG_HOLSTEIN
+		STATE_ELBE
+		STATE_HANNOVER
+
+	}
+	
+	ai_will_do = { always = no }
+}
